@@ -108,7 +108,7 @@ calculadora_2(char *host, miArray arg1, char * ope, miArray arg2, int a)
 	case '.':
 		printf(" ");
 		int * h = product_escalar_2(arg1, arg2, clnt);
-		printf("El producto vectorial es: %d\n", *h);
+		printf("El producto escalar es: %d\n", *h);
 		break;
 
 	case 'm':
@@ -178,6 +178,7 @@ int main(int argc, char *argv[])
 	arg1 = argv[2];
 	operador = argv[3];
 	arg2 = argv[4];
+	miArray null;
 
 	if( argc == 5 ) {
 		if(opeSinVectores(operador) == 1) {
@@ -194,13 +195,13 @@ int main(int argc, char *argv[])
 	} else if (argc == 4) {
 		
 		if(strcmp(operador, "m") == 0) {
-			miArray v1, v2;
-
+			miArray v1;
+			
 			v1 = cargarVector(arg1);
-			v2 = cargarVector(arg2);
-			calculadora_2(host, v1, operador, v2, 0);
+		
+			calculadora_2(host, v1, operador, null, 0);
 		} else if(strcmp(operador, "f") == 0) {
-			miArray null;
+			
 			calculadora_2(host, null, operador, null, atof(arg1));
 		}
 	} else {
