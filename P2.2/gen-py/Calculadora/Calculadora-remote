@@ -24,14 +24,15 @@ if len(sys.argv) <= 1 or sys.argv[1] == '--help':
     print('Usage: ' + sys.argv[0] + ' [-h host[:port]] [-u url] [-f[ramed]] [-s[sl]] [-novalidate] [-ca_certs certs] [-keyfile keyfile] [-certfile certfile] function [arg1 [arg2...]]')
     print('')
     print('Functions:')
+    print('  void ping()')
     print('  i32 suma(i32 num1, i32 num2)')
     print('  i32 resta(i32 num1, i32 num2)')
     print('  double multiplicacion(double num1, double num2)')
     print('  double division(double num1, double num2)')
-    print('  i64 factorial(i32 n)')
+    print('  i32 factorial(i32 n)')
     print('  double potencia(double base, double exponente)')
     print('   sumaVectores( arr1,  arr2)')
-    print('   productoEscalar( arr, double escalar)')
+    print('   productoEscalar( arr1,  arr2)')
     print('   productoVectorial( arr1,  arr2)')
     print('  double mediaAritmetica( arr1)')
     print('   productoEscalarMatrices( m1, double escalar)')
@@ -114,7 +115,13 @@ protocol = TBinaryProtocol(transport)
 client = Calculadora.Client(protocol)
 transport.open()
 
-if cmd == 'suma':
+if cmd == 'ping':
+    if len(args) != 0:
+        print('ping requires 0 args')
+        sys.exit(1)
+    pp.pprint(client.ping())
+
+elif cmd == 'suma':
     if len(args) != 2:
         print('suma requires 2 args')
         sys.exit(1)
