@@ -1,3 +1,5 @@
 *.o
 calculadora_server
 calculadora_client
+/P2.2/gen-java/JavaApplication1/nbproject/private/
+/P2.2/gen-java/JavaApplication1/build/
