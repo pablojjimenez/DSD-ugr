@@ -948,13 +948,13 @@ class suma_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.I32:
-                    self.num1 = iprot.readI32()
+                if ftype == TType.DOUBLE:
+                    self.num1 = iprot.readDouble()
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
-                if ftype == TType.I32:
-                    self.num2 = iprot.readI32()
+                if ftype == TType.DOUBLE:
+                    self.num2 = iprot.readDouble()
                 else:
                     iprot.skip(ftype)
             else:
@@ -968,12 +968,12 @@ class suma_args(object):
             return
         oprot.writeStructBegin('suma_args')
         if self.num1 is not None:
-            oprot.writeFieldBegin('num1', TType.I32, 1)
-            oprot.writeI32(self.num1)
+            oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+            oprot.writeDouble(self.num1)
             oprot.writeFieldEnd()
         if self.num2 is not None:
-            oprot.writeFieldBegin('num2', TType.I32, 2)
-            oprot.writeI32(self.num2)
+            oprot.writeFieldBegin('num2', TType.DOUBLE, 2)
+            oprot.writeDouble(self.num2)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -994,8 +994,8 @@ class suma_args(object):
 all_structs.append(suma_args)
 suma_args.thrift_spec = (
     None,  # 0
-    (1, TType.I32, 'num1', None, None, ),  # 1
-    (2, TType.I32, 'num2', None, None, ),  # 2
+    (1, TType.DOUBLE, 'num1', None, None, ),  # 1
+    (2, TType.DOUBLE, 'num2', None, None, ),  # 2
 )
 
 
@@ -1020,8 +1020,8 @@ class suma_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.I32:
-                    self.success = iprot.readI32()
+                if ftype == TType.DOUBLE:
+                    self.success = iprot.readDouble()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1035,8 +1035,8 @@ class suma_result(object):
             return
         oprot.writeStructBegin('suma_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.I32, 0)
-            oprot.writeI32(self.success)
+            oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+            oprot.writeDouble(self.success)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1056,7 +1056,7 @@ class suma_result(object):
         return not (self == other)
 all_structs.append(suma_result)
 suma_result.thrift_spec = (
-    (0, TType.I32, 'success', None, None, ),  # 0
+    (0, TType.DOUBLE, 'success', None, None, ),  # 0
 )
 
 
@@ -1083,13 +1083,13 @@ class resta_args(object):
             if ftype == TType.STOP:
                 break
             if fid == 1:
-                if ftype == TType.I32:
-                    self.num1 = iprot.readI32()
+                if ftype == TType.DOUBLE:
+                    self.num1 = iprot.readDouble()
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
-                if ftype == TType.I32:
-                    self.num2 = iprot.readI32()
+                if ftype == TType.DOUBLE:
+                    self.num2 = iprot.readDouble()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1103,12 +1103,12 @@ class resta_args(object):
             return
         oprot.writeStructBegin('resta_args')
         if self.num1 is not None:
-            oprot.writeFieldBegin('num1', TType.I32, 1)
-            oprot.writeI32(self.num1)
+            oprot.writeFieldBegin('num1', TType.DOUBLE, 1)
+            oprot.writeDouble(self.num1)
             oprot.writeFieldEnd()
         if self.num2 is not None:
-            oprot.writeFieldBegin('num2', TType.I32, 2)
-            oprot.writeI32(self.num2)
+            oprot.writeFieldBegin('num2', TType.DOUBLE, 2)
+            oprot.writeDouble(self.num2)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1129,8 +1129,8 @@ class resta_args(object):
 all_structs.append(resta_args)
 resta_args.thrift_spec = (
     None,  # 0
-    (1, TType.I32, 'num1', None, None, ),  # 1
-    (2, TType.I32, 'num2', None, None, ),  # 2
+    (1, TType.DOUBLE, 'num1', None, None, ),  # 1
+    (2, TType.DOUBLE, 'num2', None, None, ),  # 2
 )
 
 
@@ -1155,8 +1155,8 @@ class resta_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.I32:
-                    self.success = iprot.readI32()
+                if ftype == TType.DOUBLE:
+                    self.success = iprot.readDouble()
                 else:
                     iprot.skip(ftype)
             else:
@@ -1170,8 +1170,8 @@ class resta_result(object):
             return
         oprot.writeStructBegin('resta_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.I32, 0)
-            oprot.writeI32(self.success)
+            oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+            oprot.writeDouble(self.success)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -1191,7 +1191,7 @@ class resta_result(object):
         return not (self == other)
 all_structs.append(resta_result)
 resta_result.thrift_spec = (
-    (0, TType.I32, 'success', None, None, ),  # 0
+    (0, TType.DOUBLE, 'success', None, None, ),  # 0
 )
 
 
@@ -1993,13 +1993,8 @@ class productoEscalar_result(object):
             if ftype == TType.STOP:
                 break
             if fid == 0:
-                if ftype == TType.LIST:
-                    self.success = []
-                    (_etype38, _size35) = iprot.readListBegin()
-                    for _i39 in range(_size35):
-                        _elem40 = iprot.readDouble()
-                        self.success.append(_elem40)
-                    iprot.readListEnd()
+                if ftype == TType.DOUBLE:
+                    self.success = iprot.readDouble()
                 else:
                     iprot.skip(ftype)
             else:
@@ -2013,11 +2008,8 @@ class productoEscalar_result(object):
             return
         oprot.writeStructBegin('productoEscalar_result')
         if self.success is not None:
-            oprot.writeFieldBegin('success', TType.LIST, 0)
-            oprot.writeListBegin(TType.DOUBLE, len(self.success))
-            for iter41 in self.success:
-                oprot.writeDouble(iter41)
-            oprot.writeListEnd()
+            oprot.writeFieldBegin('success', TType.DOUBLE, 0)
+            oprot.writeDouble(self.success)
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
         oprot.writeStructEnd()
@@ -2037,7 +2029,7 @@ class productoEscalar_result(object):
         return not (self == other)
 all_structs.append(productoEscalar_result)
 productoEscalar_result.thrift_spec = (
-    (0, TType.LIST, 'success', (TType.DOUBLE, None, False), None, ),  # 0
+    (0, TType.DOUBLE, 'success', None, None, ),  # 0
 )
 
 
@@ -2066,20 +2058,20 @@ class productoVectorial_args(object):
             if fid == 1:
                 if ftype == TType.LIST:
                     self.arr1 = []
-                    (_etype45, _size42) = iprot.readListBegin()
-                    for _i46 in range(_size42):
-                        _elem47 = iprot.readDouble()
-                        self.arr1.append(_elem47)
+                    (_etype38, _size35) = iprot.readListBegin()
+                    for _i39 in range(_size35):
+                        _elem40 = iprot.readDouble()
+                        self.arr1.append(_elem40)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
             elif fid == 2:
                 if ftype == TType.LIST:
                     self.arr2 = []
-                    (_etype51, _size48) = iprot.readListBegin()
-                    for _i52 in range(_size48):
-                        _elem53 = iprot.readDouble()
-                        self.arr2.append(_elem53)
+                    (_etype44, _size41) = iprot.readListBegin()
+                    for _i45 in range(_size41):
+                        _elem46 = iprot.readDouble()
+                        self.arr2.append(_elem46)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -2096,15 +2088,15 @@ class productoVectorial_args(object):
         if self.arr1 is not None:
             oprot.writeFieldBegin('arr1', TType.LIST, 1)
             oprot.writeListBegin(TType.DOUBLE, len(self.arr1))
-            for iter54 in self.arr1:
-                oprot.writeDouble(iter54)
+            for iter47 in self.arr1:
+                oprot.writeDouble(iter47)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         if self.arr2 is not None:
             oprot.writeFieldBegin('arr2', TType.LIST, 2)
             oprot.writeListBegin(TType.DOUBLE, len(self.arr2))
-            for iter55 in self.arr2:
-                oprot.writeDouble(iter55)
+            for iter48 in self.arr2:
+                oprot.writeDouble(iter48)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -2154,10 +2146,10 @@ class productoVectorial_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype59, _size56) = iprot.readListBegin()
-                    for _i60 in range(_size56):
-                        _elem61 = iprot.readDouble()
-                        self.success.append(_elem61)
+                    (_etype52, _size49) = iprot.readListBegin()
+                    for _i53 in range(_size49):
+                        _elem54 = iprot.readDouble()
+                        self.success.append(_elem54)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -2174,8 +2166,8 @@ class productoVectorial_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.DOUBLE, len(self.success))
-            for iter62 in self.success:
-                oprot.writeDouble(iter62)
+            for iter55 in self.success:
+                oprot.writeDouble(iter55)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -2223,10 +2215,10 @@ class mediaAritmetica_args(object):
             if fid == 1:
                 if ftype == TType.LIST:
                     self.arr1 = []
-                    (_etype66, _size63) = iprot.readListBegin()
-                    for _i67 in range(_size63):
-                        _elem68 = iprot.readDouble()
-                        self.arr1.append(_elem68)
+                    (_etype59, _size56) = iprot.readListBegin()
+                    for _i60 in range(_size56):
+                        _elem61 = iprot.readDouble()
+                        self.arr1.append(_elem61)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -2243,8 +2235,8 @@ class mediaAritmetica_args(object):
         if self.arr1 is not None:
             oprot.writeFieldBegin('arr1', TType.LIST, 1)
             oprot.writeListBegin(TType.DOUBLE, len(self.arr1))
-            for iter69 in self.arr1:
-                oprot.writeDouble(iter69)
+            for iter62 in self.arr1:
+                oprot.writeDouble(iter62)
             oprot.writeListEnd()
             oprot.writeFieldEnd()
         oprot.writeFieldStop()
@@ -2356,15 +2348,15 @@ class productoEscalarMatrices_args(object):
             if fid == 1:
                 if ftype == TType.LIST:
                     self.m1 = []
-                    (_etype73, _size70) = iprot.readListBegin()
-                    for _i74 in range(_size70):
-                        _elem75 = []
-                        (_etype79, _size76) = iprot.readListBegin()
-                        for _i80 in range(_size76):
-                            _elem81 = iprot.readDouble()
-                            _elem75.append(_elem81)
+                    (_etype66, _size63) = iprot.readListBegin()
+                    for _i67 in range(_size63):
+                        _elem68 = []
+                        (_etype72, _size69) = iprot.readListBegin()
+                        for _i73 in range(_size69):
+                            _elem74 = iprot.readDouble()
+                            _elem68.append(_elem74)
                         iprot.readListEnd()
-                        self.m1.append(_elem75)
+                        self.m1.append(_elem68)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -2386,10 +2378,10 @@ class productoEscalarMatrices_args(object):
         if self.m1 is not None:
             oprot.writeFieldBegin('m1', TType.LIST, 1)
             oprot.writeListBegin(TType.LIST, len(self.m1))
-            for iter82 in self.m1:
-                oprot.writeListBegin(TType.DOUBLE, len(iter82))
-                for iter83 in iter82:
-                    oprot.writeDouble(iter83)
+            for iter75 in self.m1:
+                oprot.writeListBegin(TType.DOUBLE, len(iter75))
+                for iter76 in iter75:
+                    oprot.writeDouble(iter76)
                 oprot.writeListEnd()
             oprot.writeListEnd()
             oprot.writeFieldEnd()
@@ -2444,15 +2436,15 @@ class productoEscalarMatrices_result(object):
             if fid == 0:
                 if ftype == TType.LIST:
                     self.success = []
-                    (_etype87, _size84) = iprot.readListBegin()
-                    for _i88 in range(_size84):
-                        _elem89 = []
-                        (_etype93, _size90) = iprot.readListBegin()
-                        for _i94 in range(_size90):
-                            _elem95 = iprot.readDouble()
-                            _elem89.append(_elem95)
+                    (_etype80, _size77) = iprot.readListBegin()
+                    for _i81 in range(_size77):
+                        _elem82 = []
+                        (_etype86, _size83) = iprot.readListBegin()
+                        for _i87 in range(_size83):
+                            _elem88 = iprot.readDouble()
+                            _elem82.append(_elem88)
                         iprot.readListEnd()
-                        self.success.append(_elem89)
+                        self.success.append(_elem82)
                     iprot.readListEnd()
                 else:
                     iprot.skip(ftype)
@@ -2469,10 +2461,10 @@ class productoEscalarMatrices_result(object):
         if self.success is not None:
             oprot.writeFieldBegin('success', TType.LIST, 0)
             oprot.writeListBegin(TType.LIST, len(self.success))
-            for iter96 in self.success:
-                oprot.writeListBegin(TType.DOUBLE, len(iter96))
-                for iter97 in iter96:
-                    oprot.writeDouble(iter97)
+            for iter89 in self.success:
+                oprot.writeListBegin(TType.DOUBLE, len(iter89))
+                for iter90 in iter89:
+                    oprot.writeDouble(iter90)
                 oprot.writeListEnd()
             oprot.writeListEnd()
             oprot.writeFieldEnd()

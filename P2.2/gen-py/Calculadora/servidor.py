@@ -63,19 +63,19 @@ class CalculadoraHandler:
     
     def productoEscalar(self, arr1, arr2):
         print('Producto escalar de vectores...')
-        res = []
+        print(arr1, arr2)
+        res = 0
         if len(arr1) == len(arr2):
-            res = [0 for i in range(len(arr1))]
-            for i in range(len(arr1) - 1):
-                res[i] += arr1[i] * arr2[i]
+            for i in range(len(arr1)):
+                res += arr1[i] * arr2[i]
 
-        return res
+        return float(res)
     
     def productoVectorial(self,arr1,arr2):
         print('Producto vectorial')
         res = []
         if len(arr1) == len(arr2):
-            for i in range(len(arr1) - 1):
+            for i in range(len(arr1)):
                 res.append(arr1[i] * arr2[i])
         return res
     
@@ -84,8 +84,8 @@ class CalculadoraHandler:
         res = 0
         for i in m1:
             res += i
-        res = res / len(m1)
-        return res
+        res = float(res / len(m1))
+        return float(res)
         
 
     def productoEscalarMatrices(self,m1,escalar):

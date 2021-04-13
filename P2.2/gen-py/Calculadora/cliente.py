@@ -8,8 +8,67 @@ from thrift.transport import TSocket
 from thrift.transport import TTransport
 from thrift.protocol import TBinaryProtocol
 
+def cargarVectores(ficheroName):
+    with open(ficheroName, 'r') as f:
+        l = f.readlines()[0].split(' ')
+    return list(map(float, l))
+
+def cargarMatriz(ficheroName):
+    with open(ficheroName, 'r') as f:
+        l = f.readlines()[0]
+        l = l.split(',')
+        v = []
+        for s in l:
+            v.append(list(map(float, s.split(' '))))
+    return v
 
 
+
+def switch(argument, x, y):
+    
+    res = 'OPERACIÓN INCORRECTA'
+
+    if argument == '+':
+        x = float(x)
+        y = float(y)
+        res = client.suma(x, y)
+    elif argument == '-':
+        x = float(x)
+        y = float(y)
+        res = client.resta(x, y)
+    elif argument == 'x':
+        x = float(x)
+        y = float(y)
+        res = client.multiplicacion(x, y)
+    elif argument == '/':
+        x = float(x)
+        y = float(y)
+        res = client.division(x, y)
+    elif argument == '^':
+        x = float(x)
+        y = float(y)
+        res = client.potencia(x, y)
+    elif argument == '!':
+        x = int(x)
+        res = client.factorial(x)
+    elif argument == '+v':
+        res = client.sumaVectores(x, y)
+    elif argument == 'xv':
+        res = client.productoVectorial(x, y)
+    elif argument == '.':
+        
+        res = float(client.productoEscalar(x, y))
+
+    elif argument == 'm':
+        res = client.mediaAritmetica(x)
+    elif argument == '.m':
+        y = float(y)
+        res = client.productoEscalarMatrices(x, y)
+
+    return res
+
+# ------------------------------------------------------------------------
+# ------------------------------------------------------------------------
 transport = TSocket.TSocket('127.0.0.1',9090)
 transport = TTransport.TBufferedTransport(transport)
 protocol = TBinaryProtocol.TBinaryProtocol(transport)
@@ -18,54 +77,44 @@ client = Client(protocol)
 
 transport.open()
 
-print("Hacemos ping al server")
-client.ping()
+operador = sys.argv[2]
+if len(sys.argv) == 4:
 
-resultado = client.suma(1,1)
-print("1+1="+str(resultado))
+    if operador == '.':
+        op1 = sys.argv[1]
+        v1 = cargarVectores(op1)
+        op2 = sys.argv[3]
+        v2 = cargarVectores(op1)
+        
+        print(f'{v1} {operador[0]} {v2} = {switch(operador, v1, v2)}')
 
-resultado = client.resta(1,1)
-print("1-1="+str(resultado))
+    if operador == '.m':
+        op1 = sys.argv[1]
+        v1 = cargarMatriz(op1)
+        op2 = float(sys.argv[3])
+        print(f'{v1} x {op2} = {switch(operador, v1, op2)}')
 
-resultado = client.multiplicacion(5,5)
-print("5*5="+str(resultado))
 
-resultado = client.division(5,5)
-print("5/5="+str(resultado))
+    elif len(operador) == 2:
+        op1 = sys.argv[1]
+        op2 = sys.argv[3]
+        v1 = cargarVectores(op1)
+        v2 = cargarVectores(op2)
+        print(f'{v1} {operador[0]} {v2} = {switch(operador, v1, v2)}')
 
-resultado = client.potencia(5,5)
-print("5^5="+str(resultado))
+    else:
+        op1 = float(op1)
+        op2 = float(sys.argv[3])
+        print(f'{op1} {operador} {op2} = {switch(operador, op1, op2)}')
 
-resultado = client.factorial(5)
-print("5! = "+str(resultado))
+elif len(sys.argv) == 3:
+    if operador == 'm':
+        op1 = sys.argv[1]
+        v1 = cargarVectores(op1)
+        print(f'{v1} {operador} = {switch(operador, v1, 0)}')
+    elif operador == '!':
+        op1 = float(sys.argv[1])
+        print(f'{op1} {operador} = {switch(operador, op1, 0)}')
 
-lista1 = [1,2,3,4,5]
-lista2 = [1,2,3,4,5]
 
-print('Sumando vectores'+ str(lista1)+' y '+str(lista2))
-resultado = client.sumaVectores(lista1,lista2)
-print("vector suma="+str(resultado))
-
-print('Prodcuto escalar'+ str(lista1)+ ' por 5')
-resultado = client.productoEscalar(lista1, lista1)
-print("resultado="+str(resultado))
-
-arr1 = [1,2,3]
-arr2 = [4,9,5]
-
-print('Producto vectorial'+ str(arr1)+' y '+str(arr2))
-resultado = client.productoVectorial(arr1,arr2)
-print("resultado="+str(resultado))
-
-m1 = [[1,2,3],[4,5,6],[7,8,9]]
-m2 = [[1,2,3],[4,5,6],[7,8,9]] 
-
-m3 = [[7,4,8],[1,7,6],[7,20,3]]
-
-print('Producto escalar matrices'+ str(m3)+' y  2')
-resultado = client.productoEscalarMatrices(m3,2)
-print("resultado="+str(resultado))
-
-print('FIN DE LAS OPERACIONES')
 transport.close()
-
