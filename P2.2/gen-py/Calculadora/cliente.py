@@ -76,45 +76,58 @@ protocol = TBinaryProtocol.TBinaryProtocol(transport)
 client = Client(protocol)
 
 transport.open()
+try:
+    operador = sys.argv[2]
+    if len(sys.argv) == 4:
 
-operador = sys.argv[2]
-if len(sys.argv) == 4:
+        if operador == '.':
+            op1 = sys.argv[1]
+            v1 = cargarVectores(op1)
+            op2 = sys.argv[3]
+            v2 = cargarVectores(op1)
+            
+            print(f'{v1} {operador[0]} {v2} = {switch(operador, v1, v2)}')
 
-    if operador == '.':
-        op1 = sys.argv[1]
-        v1 = cargarVectores(op1)
-        op2 = sys.argv[3]
-        v2 = cargarVectores(op1)
-        
-        print(f'{v1} {operador[0]} {v2} = {switch(operador, v1, v2)}')
-
-    if operador == '.m':
-        op1 = sys.argv[1]
-        v1 = cargarMatriz(op1)
-        op2 = float(sys.argv[3])
-        print(f'{v1} x {op2} = {switch(operador, v1, op2)}')
-
-
-    elif len(operador) == 2:
-        op1 = sys.argv[1]
-        op2 = sys.argv[3]
-        v1 = cargarVectores(op1)
-        v2 = cargarVectores(op2)
-        print(f'{v1} {operador[0]} {v2} = {switch(operador, v1, v2)}')
-
-    else:
-        op1 = float(op1)
-        op2 = float(sys.argv[3])
-        print(f'{op1} {operador} {op2} = {switch(operador, op1, op2)}')
-
-elif len(sys.argv) == 3:
-    if operador == 'm':
-        op1 = sys.argv[1]
-        v1 = cargarVectores(op1)
-        print(f'{v1} {operador} = {switch(operador, v1, 0)}')
-    elif operador == '!':
-        op1 = float(sys.argv[1])
-        print(f'{op1} {operador} = {switch(operador, op1, 0)}')
+        elif operador == '.m':
+            op1 = sys.argv[1]
+            v1 = cargarMatriz(op1)
+            op2 = float(sys.argv[3])
+            print(f'{v1} x {op2} = {switch(operador, v1, op2)}')
 
 
-transport.close()
+        elif len(operador) == 2:
+            op1 = sys.argv[1]
+            op2 = sys.argv[3]
+            v1 = cargarVectores(op1)
+            v2 = cargarVectores(op2)
+            print(f'{v1} {operador[0]} {v2} = {switch(operador, v1, v2)}')
+
+        else:
+            op1 = float(sys.argv[1])
+            op2 = float(sys.argv[3])
+            print(f'{op1} {operador} {op2} = {switch(operador, op1, op2)}')
+
+    elif len(sys.argv) == 3:
+        if operador == 'm':
+            op1 = sys.argv[1]
+            v1 = cargarVectores(op1)
+            print(f'{v1} {operador} = {switch(operador, v1, 0)}')
+
+        elif operador == '!':
+            op1 = float(sys.argv[1])
+            print(f'{op1} {operador} = {switch(operador, op1, 0)}')
+
+
+    transport.close()
+except:
+    print('instrucciones incorrectas...')
+    print('\tPython3 cliente.py <n> + <n>')
+    print('\tPython3 cliente.py <n> - <n>')
+    print('\tPython3 cliente.py <n> x <n>')
+    print('\tPython3 cliente.py <n> / <n>')
+    print('\tPython3 cliente.py <n> !')
+    print('\tPython3 cliente.py <file> +v <file>')
+    print('\tPython3 cliente.py <file> xv <file>')
+    print('\tPython3 cliente.py <file> . <file>')
+    print('\tPython3 cliente.py <file> m')
+    print('\tPython3 cliente.py <file> .m <n>')
