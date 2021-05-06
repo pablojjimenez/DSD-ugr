@@ -1,0 +1,4 @@
+java -cp . -Djava.rmi.server.codebase="C:\Users\Pablo Jj\projects\DSD-ugr\P3\rmi_2" -Djava.rmi.server.hostname=localhost -Djava.security.policy=server.policy Server
+
+
+java -cp . -Djava.security.policy=server.policy Cliente_Ejemplo localhost 0

@@ -9,6 +9,7 @@ import java.rmi.registry.Registry;
 public class ClienteEjemplo1 {
 
     public static void main(String[] args) {
+                
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
