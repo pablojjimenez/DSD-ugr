@@ -1,157 +1,159 @@
-import java.awt.Color;
+import java.net.MalformedURLException;
 import java.rmi.registry.LocateRegistry;
+import java.rmi.*;
 import java.rmi.registry.Registry;
-import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Cliente {
-    public static void main(String args[]) {
+    public static void main(String[] args) {
+        String servidor1 = "ddonaciones1";
+        String servidor2 = "ddonaciones2";
+        int servidorEscogido = 0;
+        String newLine = System.getProperty("line.separator");
+        Scanner in = new Scanner(System.in);
+        boolean isIdentificado = false;
+
+        // Crea e instala el gestor de seguridad
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
         }
 
-        if (args.length < 2) {
-            System.out.println("Error al invocar el programa. Son necesarios 2 argumentos. <IP operación>");
-            System.exit(0);
-        }
-// <IP> <0 | 1 | 2 | 3>
         try {
-            switch (Integer.parseInt(args[1])) {
-                case 0:
-                    String nombre_objeto_remoto = "Original";
-                    System.out.println("Buscando el objeto servidor...");
-                    Registry registry = LocateRegistry.getRegistry(args[0]);
-                    I_Donaciones instancia_local = (I_Donaciones) registry.lookup(nombre_objeto_remoto);
-                    System.out.println("Invocando el objeto servidor");
+            // Crea el stub para el cliente especificando el nombre del servidor
+            I_Donaciones donaciones1 = (I_Donaciones)Naming.lookup("ddonaciones1");
+            I_Donaciones donaciones2 = (I_Donaciones)Naming.lookup("ddonaciones2");
+            boolean comienzo = true;
 
-                    System.out.println("Primer usuario");
-                    instancia_local.registrar("Miguel");
-                    instancia_local.donar(new Aportacion("Miguel", 3000.0));
-                    System.out.println("El total donado por los usuarios es " + instancia_local.getTotal("Miguel") + " euros");
+            /* Variables para dentro de los bucles */
+            String nombreInicioSesion = "";
+            String codigoInicioSesion = "";
 
-                    System.out.println("Segundo usuario");
-                    instancia_local.registrar("Juan");
-                    instancia_local.donar(new Aportacion("Juan", 200.0));
-                    System.out.println("El total donado por los usuarios es " + instancia_local.getTotal("Juan") + " euros");
+            while(comienzo) {
+                System.out.println("Bienvenido al Sistema de Donaciones. Por favor, selecciona una opción:" + newLine +
+                        "   R: Registrarse" + newLine +
+                        "   I: Iniciar Sesión" + newLine +
+                        "   S: Salir");
 
-                    System.out.println("Tercer usuario");
-                    instancia_local.registrar("Jesus");
-                    instancia_local.donar(new Aportacion("Jesus", 1000.0));
-                    System.out.println("El total donado por los usuarios es " + instancia_local.getTotal("Jesus") + " euros");
-                    break;
-                case 1:
-                    nombre_objeto_remoto = "Replica";
-                    System.out.println("Buscando el objeto servidor...");
-                    registry = LocateRegistry.getRegistry(args[0]);
-                    instancia_local = (I_Donaciones) registry.lookup(nombre_objeto_remoto);
-                    System.out.println("Invocando el objeto servidor");
+                String opcionInicial = in.nextLine();
 
-                    System.out.println("Primer usuario");
-                    instancia_local.registrar("Antonio");
-                    instancia_local.donar(new Aportacion("Antonio",3000.0));
-                    System.out.println("El total donado por los usuarios es "+instancia_local.getTotal("Antonio")+" euros");
+                switch(opcionInicial) {
+                    case "R":
+                        System.out.println("Introduzca un nombre para la Entidad: ");
+                        String nombreEntidad = in.nextLine();
 
-                    System.out.println("Segundo usuario");
-                    instancia_local.registrar("Luisa");
-                    instancia_local.donar(new Aportacion("Luisa",200.0));
-                    System.out.println("El total donado por los usuarios es "+instancia_local.getTotal("Luisa")+" euros");
+                        System.out.println("Introduzca un código de acceso: ");
+                        String codigoAcceso = in.nextLine();
 
-                    System.out.println("Tercer usuario");
-                    instancia_local.registrar("Maria");
-                    instancia_local.donar(new Aportacion("Maria",1000.0));
-                    System.out.println("El total donado por los usuarios es "+instancia_local.getTotal("Maria")+" euros");
+                        System.out.println("¿En qué servidor desea registrarse? (1 o 2): ");
+                        servidorEscogido = Integer.parseInt(in.nextLine());
 
-                    break;
-                case 2:
-                    nombre_objeto_remoto = "Original";
-                    System.out.println("Buscando el objeto servidor...");
-                    registry = LocateRegistry.getRegistry(args[0]);
-                    instancia_local = (I_Donaciones) registry.lookup(nombre_objeto_remoto);
-                    System.out.println("Invocando el objeto servidor");
-                    System.out.println("Comprobando los usuarios que se han registrado en el servidor original");
-                    System.out.println(instancia_local.getUsuarios());
-                    break;
+                        if(servidorEscogido == 1) {
+                            if(donaciones1.registroEntidad(nombreEntidad, codigoAcceso)) {
+                                System.out.println("Registro completado en el servidor " + servidorEscogido);
+                            }
 
-                case 3:
-                    nombre_objeto_remoto = "Replica";
-                    System.out.println("Buscando el objeto servidor...");
-                    registry = LocateRegistry.getRegistry(args[0]);
-                    instancia_local = (I_Donaciones) registry.lookup(nombre_objeto_remoto);
-                    System.out.println("Invocando el objeto servidor");
-                    System.out.println("Comprobando los usuarios que se han registrado en el servidor replicado");
-                    System.out.println(instancia_local.getUsuarios());
-                    break;
-                case 6:
-                    nombre_objeto_remoto = "Original";
-                    System.out.println("Buscando el objeto servidor...");
-                    registry = LocateRegistry.getRegistry(args[0]);
-                    instancia_local = (I_Donaciones) registry.lookup(nombre_objeto_remoto);
-                    System.out.println("Invocando el objeto servidor");
-                    System.out.println("Comprobando el registro de donaciones del servidor original");
-                    for(int i = 0; i < instancia_local.getRegistro().size(); i++)
-                    {
-                        System.out.println(instancia_local.getRegistro().get(i).getUser());
-                        System.out.println(instancia_local.getRegistro().get(i).getCantidad());
+                            else {
+                                System.out.println("La entidad ya está registrada. Pruebe con otro nombre.");
+                            }
+                        }
+
+                        else if(servidorEscogido == 2) {
+                            if(donaciones2.registroEntidad(nombreEntidad, codigoAcceso)) {
+                                System.out.println("Registro completado en el servidor " + servidorEscogido);
+                            }
+
+                            else {
+                                System.out.println("La entidad ya está registrada. Pruebe con otro nombre.");
+                            }
+                        }
+
+                        else {
+                            System.out.println("El número de servidor no es correcto. Debe de ser 1 o 2.");
+                        }
+                        break;
+
+                    case "I":
+                        System.out.println("Menú de Inicio de Sesión. Introduzca su nombre de Entidad: ");
+                        nombreInicioSesion = in.nextLine();
+
+                        System.out.println("Introduzca su código de acceso: ");
+                        codigoInicioSesion = in.nextLine();
+
+                        /* Comprobamos en cualquiera de los dos servidores */
+                        if(donaciones1.identificarse(nombreInicioSesion, codigoInicioSesion)) {
+                            System.out.println("Identificado correctamente. Bienvenido.");
+                            isIdentificado = true;
+                        }
+
+                        else {
+                            System.out.println("No existe ninguna Entidad con los datos proporcionados. Inténtelo de nuevo.");
+                            isIdentificado = false;
+                        }
+                        break;
+
+                    case "S":
+                        System.out.println("Saliendo del sistema.");
+                        comienzo = false;
+                        isIdentificado = false;
+                        break;
+
+                    default:
+                        System.out.println("La opción no es válida. Pruebe de nuevo.");
+                        break;
+                }
+
+                while(isIdentificado) {
+                    System.out.println("Bienvenido al Sistema de Donaciones. Usted ha Iniciado Sesión. Por favor, selecciona una opción:" + newLine +
+                            "   D: Donar" + newLine +
+                            "   T: Obtener Total Donado" + newLine +
+                            "   S: Salir");
+
+                    String opcionIdentificado = in.nextLine();
+
+                    switch(opcionIdentificado) {
+                        case "D":
+                            System.out.println("Introduzca la cantidad a donar: ");
+
+                            int cantidad = Integer.parseInt(in.nextLine());
+                            while(cantidad < 0.0) {
+                                if(cantidad < 0.0)
+                                    System.out.println("La cantidad debe de ser mayor que 0.0€");
+
+                                cantidad = Integer.parseInt(in.nextLine());
+                            }
+
+
+                            if(donaciones1.donar(nombreInicioSesion, cantidad)) {
+                                System.out.println("La donación se completado con éxito");
+                            }
+                            break;
+
+                        case "T":
+                            System.out.println("Obteniendo cantidad total donada por todas las entidades...");
+                            System.out.println("Total donado: " + donaciones1.getTotal() + "€");
+                            break;
+
+                        case "S":
+                            System.out.println("Saliendo de la sesión iniciada...");
+                            isIdentificado = false;
+                            comienzo = true;
+                            break;
                     }
-                    System.out.println("Comprobando los usuarios del servidor original");
-                    System.out.println(instancia_local.getUsuarios().size());
-                    System.out.println("Comprobando el total del servidor original");
-                    System.out.println(instancia_local.getTotalLocal());
-                    System.out.println("Comprobando el tamaño del vector replicas del servidor original");
-                    break;
-                case 7:
-                    nombre_objeto_remoto = "Replica";
-                    System.out.println("Buscando el objeto servidor...");
-                    registry = LocateRegistry.getRegistry(args[0]);
-                    instancia_local = (I_Donaciones) registry.lookup(nombre_objeto_remoto);
-                    System.out.println("Invocando el objeto servidor");
-                    System.out.println("Comprobando el registro de donaciones del servidor replicado");
-
-                    for(int i = 0; i < instancia_local.getRegistro().size(); i++)
-                    {
-                        System.out.println(instancia_local.getRegistro().get(i).getUser());
-                        System.out.println(instancia_local.getRegistro().get(i).getCantidad());
-                    }
-                    System.out.println("Comprobando los usuarios del servidor replicado");
-                    System.out.println(instancia_local.getUsuarios().size());
-                    System.out.println("Comprobando el total del servidor replicado");
-                    System.out.println(instancia_local.getTotalLocal());
-                    System.out.println("Comprobando el tamaño del vector replicas del servidor replicado");
-
-                    System.out.println("El total donado por los usuarios es "+instancia_local.getTotal("Miguel")+" euros");
-                    break;
-                case 8:
-                    nombre_objeto_remoto = "Replica2";
-                    System.out.println("Buscando el objeto servidor...");
-                    registry = LocateRegistry.getRegistry(args[0]);
-                    instancia_local = (I_Donaciones) registry.lookup(nombre_objeto_remoto);
-                    System.out.println("Invocando el objeto servidor");
-                    System.out.println("Comprobando el registro de donaciones del servidor replicado2");
-
-                    for(int i = 0; i < instancia_local.getRegistro().size(); i++)
-                    {
-                        System.out.println(instancia_local.getRegistro().get(i).getUser());
-                        System.out.println(instancia_local.getRegistro().get(i).getCantidad());
-                    }
-                    System.out.println("Comprobando los usuarios del servidor replicado2");
-                    System.out.println(instancia_local.getUsuarios().size());
-                    System.out.println("Comprobando el total del servidor replicado2");
-                    System.out.println(instancia_local.getTotalLocal());
-                    System.out.println("Comprobando el tamaño del vector replicas del servidor replicado2");
-                    break;
-                case 9:
-                    nombre_objeto_remoto = "Replica2";
-                    System.out.println("Buscando el objeto servidor...");
-                    registry = LocateRegistry.getRegistry(args[0]);
-                    instancia_local = (I_Donaciones) registry.lookup(nombre_objeto_remoto);
-                    System.out.println("Invocando el objeto servidor");
-                    ArrayList<Aportacion> aux = instancia_local.getRegistroTotal();
-                    for(int i= 0; i < aux.size(); i++)
-                        System.out.println("Usuario: "+aux.get(i).getUser() +" Cantidad donada: "+aux.get(i).getCantidad());
-                    break;
+                }
             }
-        } catch (Exception e) {
-            System.err.println("Error al invocar el servidor " + e.getLocalizedMessage());
+
+
+        } catch(NotBoundException e) {
+            System.err.println("Exception del sistema: " + e.getLocalizedMessage());
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            System.err.println("Exception del sistema: " + e.getLocalizedMessage());
+            e.printStackTrace();
+        } catch (MalformedURLException e) {
+            System.err.println("Exception del sistema: " + e.getLocalizedMessage());
             e.printStackTrace();
         }
+
+        System.exit(0);
     }
 }
