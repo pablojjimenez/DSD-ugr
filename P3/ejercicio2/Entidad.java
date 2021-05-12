@@ -1,9 +1,3 @@
-
-import java.io.Serializable;
-
-/**
- * Clase modelo para representar las aportaciones.
- */
 import java.io.Serializable;
 
 public class Entidad implements Serializable {

@@ -1,3 +1,0 @@
-java -cp . -Djava.rmi.server.codebase="/Users/pablojj/projects/DSD-ugr/P3/ejercicio2" -Djava.rmi.server.hostname=localhost -Djava.security.policy=server.policy Servidor localhost 0
-
-

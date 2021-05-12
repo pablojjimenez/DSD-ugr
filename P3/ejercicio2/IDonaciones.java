@@ -1,12 +1,11 @@
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 
-public interface I_Donaciones extends Remote {
+public interface IDonaciones extends Remote {
     boolean registroEntidad(String nombre, String codigoAcceso) throws RemoteException;
     boolean donar(String nombre, double cantidad) throws RemoteException;
     Entidad entidadRegistrada(String nombre) throws RemoteException;
-    I_Donaciones getReplica() throws RemoteException;
+    IDonaciones getReplica() throws RemoteException;
     int getNumeroEntidades() throws RemoteException;
     void addEntidad(String nombre, String codigoAcceso) throws RemoteException;
     void incrementarSubtotal(double cantidad) throws RemoteException;

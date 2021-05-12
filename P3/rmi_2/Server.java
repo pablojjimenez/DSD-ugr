@@ -20,15 +20,15 @@ public class Server implements I_Ejemplo2 {
     }
 
     
-    public void escribirMensaje(String mensaje) {
+    public synchronized void escribirMensaje(String mensaje) {
         System.out.println("\nEntra Hebra " + mensaje);
 
         // Buscamos los procesos 0, 10, 20,...
         if (mensaje.endsWith("0")) {
             try {
-                System.out.println("Empezamos a dormir");
+                System.out.println("Empezamos a dormir la hebra " + mensaje);
                 Thread.sleep(5000);
-                System.out.println("Terminamos de dormir");
+                System.out.println("Terminamos de dormir la hebra " + mensaje);
             } catch (Exception e) {
                 System.err.println("Ejemplo exception:");
                 e.printStackTrace();

@@ -20,8 +20,8 @@ public class Cliente {
 
         try {
             // Crea el stub para el cliente especificando el nombre del servidor
-            I_Donaciones donaciones1 = (I_Donaciones)Naming.lookup("ddonaciones1");
-            I_Donaciones donaciones2 = (I_Donaciones)Naming.lookup("ddonaciones2");
+            IDonaciones donaciones1 = (IDonaciones)Naming.lookup(servidor1);
+            IDonaciones donaciones2 = (IDonaciones)Naming.lookup("ddonaciones2");
             boolean comienzo = true;
 
             /* Variables para dentro de los bucles */
@@ -30,22 +30,22 @@ public class Cliente {
 
             while(comienzo) {
                 System.out.println("Bienvenido al Sistema de Donaciones. Por favor, selecciona una opción:" + newLine +
-                        "   R: Registrarse" + newLine +
-                        "   I: Iniciar Sesión" + newLine +
-                        "   S: Salir");
-
+                                "   R: Registrarse" + newLine +
+                                "   I: Iniciar Sesión" + newLine +
+                                "   S: Salir");
+            
                 String opcionInicial = in.nextLine();
-
+                
                 switch(opcionInicial) {
                     case "R":
                         System.out.println("Introduzca un nombre para la Entidad: ");
-                        String nombreEntidad = in.nextLine();
+                        String nombreEntidad = "in.nextLine()";
 
                         System.out.println("Introduzca un código de acceso: ");
-                        String codigoAcceso = in.nextLine();
+                        String codigoAcceso = "in.nextLine()";
 
                         System.out.println("¿En qué servidor desea registrarse? (1 o 2): ");
-                        servidorEscogido = Integer.parseInt(in.nextLine());
+                        servidorEscogido = 2;
 
                         if(servidorEscogido == 1) {
                             if(donaciones1.registroEntidad(nombreEntidad, codigoAcceso)) {
@@ -70,7 +70,7 @@ public class Cliente {
                         else {
                             System.out.println("El número de servidor no es correcto. Debe de ser 1 o 2.");
                         }
-                        break;
+                    break;
 
                     case "I":
                         System.out.println("Menú de Inicio de Sesión. Introduzca su nombre de Entidad: ");
@@ -89,17 +89,17 @@ public class Cliente {
                             System.out.println("No existe ninguna Entidad con los datos proporcionados. Inténtelo de nuevo.");
                             isIdentificado = false;
                         }
-                        break;
+                    break;
 
                     case "S":
                         System.out.println("Saliendo del sistema.");
                         comienzo = false;
                         isIdentificado = false;
-                        break;
+                    break;
 
                     default:
                         System.out.println("La opción no es válida. Pruebe de nuevo.");
-                        break;
+                    break;
                 }
 
                 while(isIdentificado) {
@@ -107,7 +107,7 @@ public class Cliente {
                             "   D: Donar" + newLine +
                             "   T: Obtener Total Donado" + newLine +
                             "   S: Salir");
-
+                    
                     String opcionIdentificado = in.nextLine();
 
                     switch(opcionIdentificado) {
@@ -119,41 +119,39 @@ public class Cliente {
                                 if(cantidad < 0.0)
                                     System.out.println("La cantidad debe de ser mayor que 0.0€");
 
-                                cantidad = Integer.parseInt(in.nextLine());
+                                cantidad = Integer.parseInt(in.nextLine()); 
                             }
 
-
+                            
                             if(donaciones1.donar(nombreInicioSesion, cantidad)) {
                                 System.out.println("La donación se completado con éxito");
                             }
-                            break;
+                        break;
 
                         case "T":
                             System.out.println("Obteniendo cantidad total donada por todas las entidades...");
                             System.out.println("Total donado: " + donaciones1.getTotal() + "€");
-                            break;
+                        break;
 
                         case "S":
                             System.out.println("Saliendo de la sesión iniciada...");
                             isIdentificado = false;
                             comienzo = true;
-                            break;
-                    }
+                        break;
+                    }    
                 }
             }
 
-
+            
         } catch(NotBoundException e) {
-            System.err.println("Exception del sistema: " + e.getLocalizedMessage());
             e.printStackTrace();
         } catch (RemoteException e) {
-            System.err.println("Exception del sistema: " + e.getLocalizedMessage());
             e.printStackTrace();
         } catch (MalformedURLException e) {
-            System.err.println("Exception del sistema: " + e.getLocalizedMessage());
+            System.err.println(e.getMessage());
             e.printStackTrace();
         }
-
+        
         System.exit(0);
     }
 }

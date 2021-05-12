@@ -18,6 +18,7 @@ public class Contador extends UnicastRemoteObject implements Icontador {
 
     public int incrementar() throws RemoteException {
         suma++;
+        System.out.println("Incremento " + suma);
         return suma;
     }
 }

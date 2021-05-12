@@ -5,7 +5,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
-public class Donaciones extends UnicastRemoteObject implements I_Donaciones {
+public class Donaciones extends UnicastRemoteObject implements IDonaciones {
     private ArrayList<Entidad> entidades = new ArrayList<>();
     private double subtotal = 0;
     private String nombreReplica = "";
@@ -19,8 +19,8 @@ public class Donaciones extends UnicastRemoteObject implements I_Donaciones {
     @Override
     public boolean registroEntidad(String nombre, String codigoAcceso) throws RemoteException {
         /* Comprobamos que el cliente no exista en la replica */
-        I_Donaciones replica = this.getReplica();
-
+        IDonaciones replica = this.getReplica();
+        
         if(replica != null) {
             if(replica.entidadRegistrada(nombre) != null)
                 return false;
@@ -29,7 +29,7 @@ public class Donaciones extends UnicastRemoteObject implements I_Donaciones {
         /* Comprobamos que la entidad no esté registrada en el servidor local */
         if(this.entidadRegistrada(nombre) != null)
             return false;
-
+        
         /* Ahora escogemos en qué replica alojar la entidad */
         boolean replicaLocal = false;
 
@@ -37,12 +37,12 @@ public class Donaciones extends UnicastRemoteObject implements I_Donaciones {
             replicaLocal = true;
         else
             replicaLocal = false;
-
+        
         if(replicaLocal)
             this.addEntidad(nombre, codigoAcceso);
         else
             replica.addEntidad(nombre, codigoAcceso);
-
+        
         System.out.println("Entidad " + nombre + " registrada con éxito");
         return true;
     }
@@ -51,9 +51,9 @@ public class Donaciones extends UnicastRemoteObject implements I_Donaciones {
     @Override
     public boolean donar(String nombre, double cantidad) throws RemoteException {
         /* Comprobamos que el cliente no exista en la replica */
-        I_Donaciones replica = this.getReplica();
+        IDonaciones replica = this.getReplica();
         boolean existeEnReplica = false, existeEnLocal = false;
-
+        
         if(replica != null) {
             if(replica.entidadRegistrada(nombre) != null)
                 existeEnReplica = true;
@@ -64,7 +64,7 @@ public class Donaciones extends UnicastRemoteObject implements I_Donaciones {
             if(this.entidadRegistrada(nombre) != null)
                 existeEnLocal = true;
         }
-
+        
         if(existeEnReplica) {
             Entidad encontrada = replica.entidadRegistrada(nombre);
             encontrada.incrementarTotal(cantidad);
@@ -99,14 +99,22 @@ public class Donaciones extends UnicastRemoteObject implements I_Donaciones {
 
     /* Obtener la réplica */
     @Override
-    public I_Donaciones getReplica() throws RemoteException {
-        I_Donaciones replica = null;
-
+    public IDonaciones getReplica() throws RemoteException {
+        IDonaciones replica = null;
+        System.out.println("Obteniendo al replica {" + this.nombreReplica);
         try {
-            Registry mireg = LocateRegistry.getRegistry("localhost", 1099);
-            replica = (I_Donaciones)mireg.lookup(this.nombreReplica);
-        } catch (NotBoundException | RemoteException e) {
-            e.printStackTrace();
+            Registry mireg = LocateRegistry.getRegistry("localhost", 1091);
+
+            String[] v = mireg.list();
+            for (int i=0; i<v.length; i++) System.out.println(v[i]);
+
+            replica = (IDonaciones) mireg.lookup(this.nombreReplica);
+        } catch (NotBoundException e) {
+
+            //e.printStackTrace();
+        } catch (RemoteException w) {
+            System.out.println("======================================================================================");
+            //w.printStackTrace();
         }
 
         return replica;
@@ -139,9 +147,9 @@ public class Donaciones extends UnicastRemoteObject implements I_Donaciones {
     /* Obtener el total donado de todas las réplicas */
     @Override
     public double getTotal() throws RemoteException {
-        I_Donaciones replica = this.getReplica();
+        IDonaciones replica = this.getReplica();
         boolean existeEnReplica = false, existeEnLocal = false;
-
+        
         if(replica != null) {
             if(this.getSubtotal() == 0.0 && replica.getSubtotal() == 0.0) {
                 System.out.println("Aún no se ha realizado ninguna donación");
@@ -157,7 +165,7 @@ public class Donaciones extends UnicastRemoteObject implements I_Donaciones {
     /* Función para identificarse */
     @Override
     public boolean identificarse(String nombre, String codigoAcceso) throws RemoteException {
-        I_Donaciones replica = this.getReplica();
+        IDonaciones replica = this.getReplica();
         boolean existeEnReplica = false;
 
         if(replica != null) {
