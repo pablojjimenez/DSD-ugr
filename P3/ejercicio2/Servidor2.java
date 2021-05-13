@@ -11,7 +11,7 @@ public class Servidor2 {
 
             GestionDonaciones servidor1 = new GestionDonaciones("servidor1", 1);
             Naming.rebind("servidor1", servidor1);
-            System.out.println("Servidor 1 preparado");
+            System.out.println(C.BLUE_BACKGROUND_BRIGHT + "Servidor 1 preparado" + C.RESET);
 
         } catch (Exception e) {
             e.printStackTrace();

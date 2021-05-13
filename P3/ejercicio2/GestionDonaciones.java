@@ -42,12 +42,8 @@ public class GestionDonaciones extends UnicastRemoteObject implements I_Donacion
             if (!replicaServ.existeUsuario(u)) {
                 if (this.clientes.size() <= replicaServ.getSize()) {
                     this.introducirUsuario(u);
-                    System.out.printf("%s %s %s %n",
-                            C.YELLOW, "Se ha introducido un usuario en el", this.nombre, C.RESET);
-                } else {
+                }  else { 
                     replicaServ.introducirUsuario(u);
-                    System.out.printf("%s %s %s %n",
-                            C.YELLOW, "Se ha introducido un usuario en el", this.replica, C.RESET);
                 }
             } else {
                 existe = true;
@@ -131,6 +127,13 @@ public class GestionDonaciones extends UnicastRemoteObject implements I_Donacion
 
     public void introducirUsuario (Usuario u) throws RemoteException {
         this.clientes.put(u, 0.0);
+        System.out.printf(
+            "%s %s %s %n",
+            C.YELLOW, 
+            "Se ha introducido un usuario en el ", 
+            this.nombre, 
+            C.RESET
+        );
     }
 
     public int getSize() throws RemoteException {
