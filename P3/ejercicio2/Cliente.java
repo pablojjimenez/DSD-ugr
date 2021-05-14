@@ -12,7 +12,7 @@ public class Cliente {
     private final I_Donaciones gestor;
     private static final int FIN = 7;
 
-    public Cliente(final I_Donaciones gestor) {
+    public Cliente(I_Donaciones gestor) {
         this.usuario = null;
         this.gestor = gestor;
         teclado = new Scanner(System.in);
@@ -38,7 +38,7 @@ public class Cliente {
         System.out.print("Escriba su contraseña: ");
         String pass = teclado.nextLine();
         iniciaSesion(new Usuario(usuarioT, pass));
-        Boolean existe = gestor.registro(usuario);
+        Boolean existe = gestor.registro(Cliente.usuario);
 
         if (existe)
             System.out.println(C.mgeErr("El usuario ya existe"));
@@ -132,7 +132,7 @@ public class Cliente {
             final I_Donaciones gestor = (I_Donaciones) registry.lookup("servidor0");
 
             System.out.printf("%s %s %s %n", C.GREEN_UNDERLINED, "GESTIÓN DE DONACIONES", C.RESET);
-
+            
             final Cliente cliente = new Cliente(gestor);
             int opc = -1;
             do {

@@ -1,7 +1,7 @@
 import java.rmi.*;
 import java.rmi.registry.LocateRegistry;
 
-public class Servidor2 {
+public class Servidor1 {
     public static void main(String[] args) {
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());

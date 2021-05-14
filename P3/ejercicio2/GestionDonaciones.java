@@ -42,7 +42,7 @@ public class GestionDonaciones extends UnicastRemoteObject implements I_Donacion
             if (!replicaServ.existeUsuario(u)) {
                 if (this.clientes.size() <= replicaServ.getSize()) {
                     this.introducirUsuario(u);
-                }  else { 
+                } else { 
                     replicaServ.introducirUsuario(u);
                 }
             } else {
@@ -114,6 +114,7 @@ public class GestionDonaciones extends UnicastRemoteObject implements I_Donacion
     }
 
     public I_Servidores getReplica() throws RemoteException {
+        
         I_Servidores servReplica = null;
         try {
             Registry registry = LocateRegistry.getRegistry("127.0.0.1", PUERTO);
@@ -140,8 +141,7 @@ public class GestionDonaciones extends UnicastRemoteObject implements I_Donacion
         return this.clientes.size();
     }
 
-    public Double getSubtotal()
-    {
+    public Double getSubtotal() {
         return this.subtotal;
     }
 
@@ -152,6 +152,7 @@ public class GestionDonaciones extends UnicastRemoteObject implements I_Donacion
     }
 
     public Double getDonacionUsuario(Usuario usuario) throws RemoteException {
+        System.out.println(C.YELLOW + "Se solicita lo donado por el usuario: " + usuario.getNombre() + C.RESET);
         return this.clientes.get(usuario);
     }
 
