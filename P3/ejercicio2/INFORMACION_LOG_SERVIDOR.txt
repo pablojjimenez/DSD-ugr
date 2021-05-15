@@ -1,0 +1,16 @@
+----Servidor0:
+{
+    Usuario{nombre='Usuario 5', pass='123'}=<57.0, servidor1>, 
+    Usuario{nombre='Usuario 1', pass='123'}=<45.0, servidor1>, 
+    Usuario{nombre='Usuario 3', pass='123'}=<12.0, servidor1>, 
+    Usuario{nombre='Usuario 7', pass='gdr'}=<46.0, servidor1>
+}
+----Servidor1:
+{
+    Usuario{nombre='Usuario 2', pass='123'}=<67.0, servidor0>, 
+    Usuario{nombre='Usuario 4', pass='123'}=<120.0, servidor0>, 
+    Usuario{nombre='Usuario 6', pass='345g'}=<46.0, servidor0>, 
+    Usuario{nombre='Usuario 8', pass='1243653'}=<112.0, servidor0>
+}
+
+Total recaudado: 505.0

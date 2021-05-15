@@ -8,4 +8,5 @@ public interface I_Donaciones extends Remote {
     public Boolean donar(Usuario usuario, double donacion) throws RemoteException;
     public Double getTotal() throws RemoteException;
     public Double getUsuario(Usuario u) throws RemoteException;
+    public void volcarLogServer() throws RemoteException;
 }
