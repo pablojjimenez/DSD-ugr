@@ -7,10 +7,10 @@ let io = require("socket.io")(http);
 let params = require('./params.json');
 
 app.get('/', (req, res) => {
-    res.sendFile('usuario.html', {root: __dirname});
+    res.sendFile('sensores.html', {root: __dirname});
 });
 
-app.get('/usuario', (req, res) => {
+app.get('/user', (req, res) => {
     res.sendFile('usuario.html', {root: __dirname});
 });
 

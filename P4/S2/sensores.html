@@ -1,92 +1,71 @@
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>Sensores Sistema Domótico</title>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Sensores de usuario</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4"
+            crossorigin="anonymous"></script>
+    <title>Sensores Sistema Domótico</title>
+    <style>
+        body {
+            margin-top: 100px;
+            text-align: center;
+        }
+        main {
+            width: 50%;
+            margin: auto;
+        }
+        .borde {
+            border: 2px solid gray;
+        }
+    </style>
 </head>
 <body>
-<form action="javascript:void(0);" onsubmit="javascript:enviar();">
-  Valor a simular: <input type="label" id="val1" /><br />
-  Sensor a simular:
-  <select id="sensores">
-    <option value="temperatura">Temperatura</option>
-    <option value="luminosidad">Luminosidad</option>
-    <option value="suciedad">Suciedad</option>
-    <option value="humedad">Humedad</option>
-  </select><br />
-  <input type="submit" value="Simular" />
+<main>
+<form>
+    <div class="form-group row">
+        <label for="inputPassword" class="col-sm-2 col-form-label">Valor a simular</label>
+        <div class="col-sm-10">
+            <input type="text" class="form-control" id="inputPassword" placeholder="35">
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <label class="input-group-text" for="inputGroupSelect01">Sensor a simular</label>
+            </div>
+            <select class="custom-select" id="inputGroupSelect01">
+                <option selected>seleccionar</option>
+                <option value="1">Temperatura</option>
+                <option value="2">Luminosidad</option>
+                <option value="3">Suciedad</option>
+                <option value="3">Humedad</option>
+            </select>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">guardar</button>
+    <a href="/user">Página usuario</a>
 </form>
-<span id="actuadores"></span>
-<span id="mensajes"></span>
-<a href="usuario">Página usuario</a>
-<span id="resul"></span>
-<div id="container-register">
-  <h4>Registro</h4>
-  <div id="resultados"></div>
+</main>
+<div class="row">
+    <div class="col-sm-5 col-md-6 borde">
+        <h3>Registro</h3>
+    </div>
+    <div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0 borde">
+        <h3>Usuarios activos</h3>
+    </div>
 </div>
-<div id="container-user">
-  <h4>Usuarios activos</h4>
-  <span id="usuarios"></span>
-</div>
-<style type="text/css">
-  #container-user{
-    width: 50%;
-    display: inline-block;
-    position: absolute;
-    margin-left: 50%
-  }
-  #container-register{
-    width: 50%;
-    position: absolute;
-    display: inline-block;
-  }
-</style>
+
 </body>
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
-  var serviceURL = document.URL;
-  var socket = io.connect('http://localhost:8080');
-
-  function enviar() {
-    var d = new Date();
-    var val1 = document.getElementById("val1").value;
-    var sensor = document.getElementById("sensores").value;
-    socket.emit('valores-captados',{sensor: sensor, valor : val1, time : d});
-  }
-
-  socket.on('usuarios-activos',function(data){
-    actualizarLista(data,'usuarios');
-  })
-
-  socket.on('obtener-registro',function(data){
-    actualizarLista(data,'resultados');
-  });
-
-  socket.on('valoresSensores',function(valores){
-    render(valores);
-  });
-
-  function render(valores)
-  {
-    var p = '<p> Temperatura (ºC)  '+valores.temperatura+'<br/>Luminosidad (%) '+ valores.luminosidad+'<br/>Persiana : '+valores.estadoPersiana+'<br/>Estado Aire Acondicionado '+valores.estadoAireAcondicionado+'<br/>Estado del agente domótico : '+valores.estadoAgenteDomotico+
-            '<br/>Humedad (%) '+valores.humedad+'<br/>Suciedad (%) '+valores.suciedad+'<br/> Estado Calefacción: '+valores.estadoCalefaccion+'<br/>Estado robot aspirador: '+valores.estadoAspirador+'<br/>Estado Humidificador: '+valores.estadoHumidificador+
-            '<br/>Estado ventana: '+valores.estadoVentana+'<br/>Estado cerradura inteligente: '+valores.estadoCerradura+'<br/>Velocidad viento: '+valores.viento+'</p>';
-    var mensajes = '<p>'+valores.mensajesAgente+'</p>';
-    document.getElementById('actuadores').innerHTML = p;
-    document.getElementById('mensajes').innerHTML = mensajes;
-  }
-
-  function actualizarLista(valores,identificador){
-    var listContainer = document.getElementById(identificador);
-    listContainer.innerHTML = '';
-    var listElement = document.createElement('ul');
-    listContainer.appendChild(listElement);
-    var num = valores.length;
-    for(var i=0; i<num; i++) {
-      var listItem = document.createElement('li');
-      listItem.innerHTML = JSON.stringify(valores[i]);
-      listElement.appendChild(listItem);
-    }
-  }
+    var serviceURL = document.URL;
+    var socket = io.connect('http://localhost:8080');
 
 </script>
 </html>
