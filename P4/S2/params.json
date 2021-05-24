@@ -1,9 +1,25 @@
 {
-    "aire_acondicionado": false,
-    "persiana": false,
-    "aspirador": false,
-    "ventana": false,
-    "humificador": false,
-    "calefaccion": false,
-    "agente": false
+  "aire_acondicionado": false,
+  "persiana": false,
+  "aspirador": false,
+  "ventana": false,
+  "humificador": false,
+  "calefaccion": false,
+  "agente": false,
+
+  "temp_actual": 25,
+  "lum_actual": 50,
+  "suciedad": 0,
+  "humedad": 50,
+
+  "agenteDomotico": true,
+  "MAX_TEMP": 30,
+  "MIN_TEMP": 10,
+  "UMBRAL_LUM": 20,
+  "UMBRAL_HUMEDAD": 20,
+  "UMBRAL_SUCIEDAD": 20,
+  "UMBRAL_VIENTO": 0,
+  "viento_actual": 0,
+  "MAX_VIENTO": 0,
+  "MAX_LUZ": 20
 }

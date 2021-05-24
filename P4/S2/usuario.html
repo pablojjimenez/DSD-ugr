@@ -13,9 +13,7 @@
             crossorigin="anonymous"></script>
     <style>
         div {
-            margin-top: 1.3em;
             text-align: center;
-            font-size: 3em;
         }
         main {
             text-align: center;
@@ -67,7 +65,7 @@
 <script src="/socket.io/socket.io.js"></script>
 <script type="text/javascript">
     let serviceURL = document.URL;
-    let socket = io.connect(serviceURL);
+    let socket = io.connect('http://localhost:3000/');
 
     document.getElementById('btn-check-outlined').onclick = () => {
         socket.emit('Aire-Acondicionado');
@@ -98,7 +96,6 @@
     }
 
     socket.on('mostrar-valor-sensores', (valores) => {
-        console.log(valores)
         document.getElementById('sms').innerText += valores + today() + '\n';
     });
 
