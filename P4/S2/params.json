@@ -1,0 +1,9 @@
+{
+    "aire_acondicionado": false,
+    "persiana": false,
+    "aspirador": false,
+    "ventana": false,
+    "humificador": false,
+    "calefaccion": false,
+    "agente": false
+}
