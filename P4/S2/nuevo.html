@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        h2 {
+            text-align: left;
+        }
+
+        .row::after {
+            content: "";
+            clear: both;
+            display: table;
+        }
+
+        [class*="col-"] {
+            float: left;
+            padding: 15px;
+        }
+
+        html {
+            font-family: "Lucida Sans", sans-serif;
+        }
+
+        .header {
+            background-color: #9933cc;
+            color: #ffffff;
+            padding: 15px;
+        }
+
+        .menu ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu li {
+            padding: 8px;
+            margin-bottom: 7px;
+            text-align: center;
+            color: #ffffff;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        }
+
+        .menu li:hover {
+            background-color: #dbda82;
+        }
+
+        .aside {
+            background-color: #02536f;
+            padding: 15px;
+            color: #ffffff;
+            text-align: center;
+            font-size: 14px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+        }
+
+        .footer {
+            background-color: #3b581d;
+            color: #ffffff;
+            font-size: 12px;
+            padding: 15px;
+        }
+
+        /* For mobile phones: */
+        [class*="col-"] {
+            width: 100%;
+        }
+
+        #_ol {
+            font-size: 1.5em;
+        }
+
+        @media only screen and (min-width: 600px) {
+            /* For tablets: */
+            .col-s-1 {width: 8.33%;}
+            .col-s-2 {width: 16.66%;}
+            .col-s-3 {width: 25%;}
+            .col-s-4 {width: 33.33%;}
+            .col-s-5 {width: 41.66%;}
+            .col-s-6 {width: 50%;}
+            .col-s-7 {width: 58.33%;}
+            .col-s-8 {width: 66.66%;}
+            .col-s-9 {width: 75%;}
+            .col-s-10 {width: 83.33%;}
+            .col-s-11 {width: 91.66%;}
+            .col-s-12 {width: 100%;}
+        }
+        @media only screen and (min-width: 768px) {
+            /* For desktop: */
+            .col-1 {width: 8.33%;}
+            .col-2 {width: 16.66%;}
+            .col-3 {width: 25%;}
+            .col-4 {width: 33.33%;}
+            .col-5 {width: 41.66%;}
+            .col-6 {width: 50%;}
+            .col-7 {width: 58.33%;}
+            .col-8 {width: 66.66%;}
+            .col-9 {width: 75%;}
+            .col-10 {width: 83.33%;}
+            .col-11 {width: 91.66%;}
+            .col-12 {width: 100%;}
+        }
+
+        #btc {
+            font-size: 2em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Panel de control</h1>
+</div>
+
+<div class="row">
+    <div class="col-3 col-s-3 menu">
+        <ul>
+            <li>
+                <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-check-outlined">aire acondicionado</label><br>
+            </li>
+            <li>
+                <input type="checkbox" class="btn-check" id="btn-check-outlined2" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-check-outlined2">Persiana abierta</label><br>
+            </li>
+            <li>
+                <input type="checkbox" class="btn-check" id="btn-check-outlined3" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-check-outlined3">Ventana abierta</label><br>
+            </li>
+            <li>
+                <input type="checkbox" class="btn-check" id="btn-check-outlined4" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-check-outlined4">aspirador</label><br>
+            </li>
+            <li>
+                <input type="checkbox" class="btn-check" id="btn-check-outlined5" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-check-outlined5">Humificador</label><br>
+            </li>
+            <li>
+                <input type="checkbox" class="btn-check" id="btn-check-outlined6" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-check-outlined6">Calefacción</label><br>
+            </li>
+            <li>
+                <input type="checkbox" class="btn-check" id="btn-check-outlined7" autocomplete="off">
+                <label class="btn btn-outline-primary" for="btn-check-outlined7">agente domestico</label><br>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col-6 col-s-9">
+        <input type="checkbox" class="btn-check" id="inte" autocomplete="off">
+        <label class="btn btn-outline-primary" for="inte">modo interactivo</label><br>
+        <form autocomplete="off" action="javascript:void(0);" onsubmit="javascript:enviarFORM()">
+            <table class="table table-dark">
+                <thead>
+                <tr>
+                    <th scope="col">Sensor</th>
+                    <th scope="col">Actual</th>
+                    <th scope="col">MÍNIMO</th>
+                    <th scope="col">MÁXIMO</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">Temperatura</th>
+                    <td><input type="text" class="form-control" id="temp_act" placeholder="35"></td>
+                    <td><input type="text" class="form-control" id="temp_min" placeholder="35"></td>
+                    <td><input type="text" class="form-control" id="temp_max" placeholder="35"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Luminosidad</th>
+                    <td><input type="text" class="form-control" id="lum_act" placeholder="35"></td>
+                    <td><input type="text" class="form-control" id="lum_min" disabled></td>
+                    <td><input type="text" class="form-control" id="lum_max" placeholder="35"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Suciedad</th>
+                    <td><input type="text" class="form-control" id="suc_act" placeholder="35"></td>
+                    <td><input type="text" class="form-control" id="suc_min" disabled></td>
+                    <td><input type="text" class="form-control" id="suc_max" placeholder="35"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Humedad</th>
+                    <td><input type="text" class="form-control" id="hum_act" placeholder="35"></td>
+                    <td><input type="text" class="form-control" id="hum_min" disabled></td>
+                    <td><input type="text" class="form-control" id="hum_max" placeholder="35"></td>
+                </tr>
+                <tr>
+                    <th scope="row">Viento</th>
+                    <td><input type="text" class="form-control" id="vi_act" placeholder="35"></td>
+                    <td><input type="text" class="form-control" id="vi_min" disabled></td>
+                    <td><input type="text" class="form-control" id="vi_max" placeholder="35"></td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="submit" class="btn btn-primary">persistir</button>
+        </form>
+    </div>
+
+    <div class="col-3 col-s-12">
+
+        <div class="aside">
+            <h2>Usuarios conectados</h2>
+            <p id="usuarios"></p>
+       </div>
+        <br>
+        <div class="aside">
+        <h2>Precio BTC</h2>
+        <p id="btc"></p>
+    </div>
+    </div>
+</div>
+<div class="overflow-auto">
+    <p id="resultados"></p>
+</div>
+<div class="footer">
+    <h1>Mensajes:</h1>
+
+        <ol id="_ol">
+
+        </ol>
+
+</div>
+<div class="aside">
+    <h2>Base de datos:</h2>
+    <p id="bbdd"></p>
+</div>
+</body>
+<script src="/socket.io/socket.io.js"></script>
+<script type="text/javascript">
+    let serviceURL = document.URL;
+    let socket = io.connect('http://localhost:3000/');
+    // sirva para identificar si el click viene del usuario o del server
+    let actuar = true;
+    document.getElementById('btn-check-outlined').onclick = () => {
+        if(actuar) socket.emit('Aire-Acondicionado');
+    }
+
+    document.getElementById('btn-check-outlined2').onclick = () => {
+        if(actuar) socket.emit('persiana');
+    }
+
+    document.getElementById('btn-check-outlined3').onclick = () => {
+        if(actuar) socket.emit('ventana');
+    }
+
+    document.getElementById('btn-check-outlined4').onclick = () => {
+        if(actuar) socket.emit('aspirador');
+    }
+
+    document.getElementById('btn-check-outlined5').onclick = () => {
+        if(actuar) socket.emit('humificador');
+    }
+
+    document.getElementById('btn-check-outlined6').onclick = () => {
+        if(actuar) socket.emit('calefaccion');
+    }
+
+    document.getElementById('btn-check-outlined7').onclick = () => {
+        if(actuar) socket.emit('agente-domestico');
+    }
+
+    // boton para el modo interactivo
+    document.getElementById('inte').onclick = () => {
+        if(actuar) socket.emit('modo-interactivo');
+    }
+
+    socket.on('usuarios-activos', (data) => {
+        actualizarLista(data, 'usuarios');
+    })
+
+    socket.on('valor-moneda', (data) => {
+        document.getElementById('btc').innerText = data;
+    })
+
+    socket.on('obtener-registro', (data) => {
+        actualizarLista(data, 'bbdd');
+        console.log('imprimirrr')
+    });
+
+    socket.on('click', (data) => {
+        switch (data) {
+            case 'Aire-Acondicionado':
+                actuar = false; // para que no se envie el evento, solo cambie el html
+                document.getElementById('btn-check-outlined').click();
+                actuar = true;
+                break;
+            case 'persiana':
+                actuar = false;
+                document.getElementById('btn-check-outlined2').click();
+                actuar = true;
+                break;
+            case 'ventana':
+                actuar = false;
+                document.getElementById('btn-check-outlined3').click();
+                actuar = true;
+                break;
+            case 'aspirador':
+                actuar = false;
+                document.getElementById('btn-check-outlined4').click();
+                actuar = true;
+                break;
+            case 'humificador':
+                actuar = false;
+                document.getElementById('btn-check-outlined5').click();
+                actuar = true;
+                break;
+            case 'calefaccion':
+                actuar = false;
+                document.getElementById('btn-check-outlined6').click();
+                actuar = true;
+                break;
+            case 'agente-domestico':
+                actuar = false;
+                document.getElementById('btn-check-outlined7').click();
+                actuar = true;
+                break;
+        }
+    });
+
+    socket.on('apagar', (data) => {
+        actualizarLista(data, 'resultados');
+    });
+
+    socket.on('datos-iniciales', (data) => {
+        document.getElementById('temp_max').value = data.temp_max;
+        document.getElementById('temp_min').value = data.temp_min;
+        document.getElementById('temp_act').value = data.temp_act;
+
+        document.getElementById('lum_max').value = data.lum_max;
+        document.getElementById('lum_min').value = data.lum_min;
+        document.getElementById('lum_act').value = data.lum_act;
+
+        document.getElementById('suc_max').value = data.suc_max;
+        document.getElementById('suc_min').value = data.suc_min;
+        document.getElementById('suc_act').value = data.suc_act;
+
+        document.getElementById('hum_max').value = data.hum_max;
+        document.getElementById('hum_min').value = data.hum_min;
+        document.getElementById('hum_act').value = data.hum_act;
+
+        document.getElementById('vi_max').value = data.vi_max;
+        document.getElementById('vi_min').value = data.vi_min;
+        document.getElementById('vi_act').value = data.vi_act;
+    });
+
+    function actualizarLista(valores, identificador) {
+        let listContainer = document.getElementById(identificador);
+        listContainer.innerHTML = '';
+        let listElement = document.createElement('ol');
+        listContainer.appendChild(listElement);
+        let num = valores.length;
+        for (let i = 0; i < num; i++) {
+            let listItem = document.createElement('li');
+            listItem.innerHTML = JSON.stringify(valores[i]);
+            listElement.appendChild(listItem);
+        }
+    }
+
+    function enviarFORM() {
+        socket.emit('valores-captados', {
+            temp_max: document.getElementById('temp_max').value,
+            temp_min: document.getElementById('temp_min').value,
+            temp_act: document.getElementById('temp_act').value,
+
+            lum_max: document.getElementById('lum_max').value,
+            lum_min: document.getElementById('lum_min').value,
+            lum_act: document.getElementById('lum_act').value,
+
+            suc_max: document.getElementById('suc_max').value,
+            suc_min: document.getElementById('suc_min').value,
+            suc_act: document.getElementById('suc_act').value,
+
+            hum_max: document.getElementById('hum_max').value,
+            hum_min: document.getElementById('hum_min').value,
+            hum_act: document.getElementById('hum_act').value,
+
+            vi_max: document.getElementById('vi_max').value,
+            vi_min: document.getElementById('vi_min').value,
+            vi_act: document.getElementById('vi_act').value,
+        });
+    }
+
+
+
+    socket.on('mostrar-valor-sensores', (valores) => {
+        console.log(valores)
+        //document.getElementById('sms').innerText += valores + today() + '<br/>';
+        //actualizarLista(valores, sms)
+        if(valores.tipo == 'string') {
+            let content = document.getElementById('_ol');
+            let listItem = document.createElement('li');
+            listItem.innerHTML = valores.sms;
+            content.appendChild(listItem);
+
+
+        } else {
+            let content = document.getElementById('_ol');
+            let v = JSON.parse(valores.sms)
+            console.log(typeof v)
+            v.forEach(m => {
+                let listItem = document.createElement('li');
+                listItem.innerHTML = JSON.stringify(m);
+                content.appendChild(listItem);
+            })
+        }
+    });
+
+
+</script>
+</html>
